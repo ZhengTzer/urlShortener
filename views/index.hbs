@@ -1,36 +1,48 @@
 {{!-- https://fathomless-meadow-84873.herokuapp.com/ --}}
 
 <div class='container mt-5'>
+  {{!-- start of single url row --}}
   {{#each url}}
-  <div class="row justify-content-md-center m-3">
-    <div class="col-6">
+
+  <div class="row m-3 justify-content-around border rounded vertical-align">
+    <div class="col-3">
       <div class="row">
         <div>{{this.date}}</div>
       </div>
       <div class="row">
         <div class="overflow-ellipsis">{{this.longUrl}}</div>
-        {{!-- collapse --}}
+      </div>
+      {{!-- collapse --}}
+      <div class="row">
         <p>
-          <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample{{this._id}}" role="button"
-            aria-expanded="false" aria-controls="collapseExample">
-            Full Url
-          </a>
+          <button class="btn btn-outline-info btn-sm mt-1" data-toggle="collapse" href="#collapseExample{{this._id}}"
+            role="button" aria-expanded="false" aria-controls="collapseExample">
+            Full URL
+          </button>
         </p>
-        <div class="collapse" id="collapseExample{{this._id}}">
+        <div class="collapse m-3" id="collapseExample{{this._id}}">
           <div class="card card-body">
             {{this.longUrl}}
           </div>
         </div>
-        {{!-- end of collapse --}}
-      </div>
-      <div class="row">
-        <div><a href="{{this.longUrl}}"
-            target="blank">https://fathomless-meadow-84873.herokuapp.com/{{this.shortUrl}}</a></div>
       </div>
     </div>
-    <div class="col-3">
-      <button type="button">Copy</button>
+    {{!-- end of collapse --}}
+
+    <div class="col-6">
+      <div class="row mb-1">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" id='copy{{this._id}}'
+            value='https://fathomless-meadow-84873.herokuapp.com/{{this.shortUrl}}' readonly>
+          <div class="input-group-append">
+            <button type="button" class="btn btn-success btn-lg btn-block" onclick="copyClipboard('copy{{this._id}}')"
+              data-clipboard-text="1">Copy</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
   {{/each}}
+  {{!-- end of single url row --}}
 </div>

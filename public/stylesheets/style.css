@@ -1,8 +1,12 @@
-div {
+.overflow-ellipsis {
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.overflow-ellipsis {
-  text-overflow: ellipsis;
+.vertical-align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
 }

@@ -14,9 +14,11 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  console.log(req.headers.host)
   const longUrl = req.body.longUrl
-  const date = new Date().toLocaleDateString()
+
+  // specific date format
+  const dateOptions = { hour12: false }
+  const date = new Date().toLocaleString('en-US', dateOptions)
 
   // refer to bit.ly which provide 7 digit shortenUrl
   const shortUrl = nanoid(7)
