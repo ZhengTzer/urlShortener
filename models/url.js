@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const recordSchema = new Schema({
   date: {
-    type: Date,
+    type: String,
     required: true
   },
   longUrl: {

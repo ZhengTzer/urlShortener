@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const urlShortenerTables = require('../../models/url')
+const { nanoid } = require('nanoid')
 
 // index page
 router.get('/', (req, res) => {
@@ -13,12 +14,16 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+  console.log(req.headers.host)
   const longUrl = req.body.longUrl
-  const date = new Date().toLocaleString()
-  console.log(longUrl, date)
+  const date = new Date().toLocaleDateString()
+
+  // refer to bit.ly which provide 7 digit shortenUrl
+  const shortUrl = nanoid(7)
   return urlShortenerTables
     .create({
       longUrl,
+      shortUrl,
       date
     })
     .then(() => res.redirect('/'))
