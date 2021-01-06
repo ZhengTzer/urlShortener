@@ -32,5 +32,24 @@ router.post('/', (req, res) => {
     .catch((error) => console.log(error))
 })
 
+// link to long url
+router.get('/:id', (req, res) => {
+  const id = req.params.id
+  urlShortenerTables
+    .aggregate([{ $match: { shortUrl: id } }], function (err, result) {
+      longUrl = result[0].longUrl
+    })
+    .then(() => res.redirect(longUrl))
+})
+
+// remove
+router.delete('/:id', (req, res) => {
+  const id = req.params.id
+  return urlShortenerTables
+    .findById(id)
+    .then((deleteUrl) => deleteUrl.remove())
+    .then(() => res.redirect('/'))
+})
+
 // module export
 module.exports = router

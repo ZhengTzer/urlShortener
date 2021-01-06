@@ -5,6 +5,11 @@
   {{#each url}}
 
   <div class="row m-3 justify-content-around border rounded vertical-align">
+    <div class="col-1">
+      <form action="/{{this._id}}?_method=DELETE" method="POST" style="display: inline;">
+        <button class='btn btn-lg btn-outline-secondary' type="submit">X</button>
+      </form>
+    </div>
     <div class="col-3">
       <div class="row">
         <div>{{this.date}}</div>
@@ -33,10 +38,10 @@
       <div class="row mb-1">
         <div class="input-group mb-3">
           <input type="text" class="form-control" id='copy{{this._id}}'
-            value='https://fathomless-meadow-84873.herokuapp.com/{{this.shortUrl}}' readonly>
+            value='hhttps://fathomless-meadow-84873.herokuapp.com/{{this.shortUrl}}' readonly>
           <div class="input-group-append">
             <button type="button" class="btn btn-success btn-lg btn-block" onclick="copyClipboard('copy{{this._id}}')"
-              data-clipboard-text="1">Copy</button>
+              data-clipboard-text="https://fathomless-meadow-84873.herokuapp.com/{{this.shortUrl}}">Copy</button>
           </div>
         </div>
       </div>
