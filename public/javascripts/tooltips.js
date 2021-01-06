@@ -14,7 +14,6 @@ function hideTooltip(btn) {
 }
 
 // Clipboard
-
 const clipboard = new Clipboard('.btn-success')
 
 clipboard.on('success', function (click) {
