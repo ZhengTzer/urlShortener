@@ -22,7 +22,6 @@ router.post('/', (req, res) => {
 
   // refer to bit.ly which provide 7 digit shortenUrl
   const shortUrl = nanoid(7)
-  console.log(shortUrl)
 
   // check for duplicate
   urlShortenerTables.aggregate(
@@ -38,16 +37,13 @@ router.post('/', (req, res) => {
       }
     ],
     function (err, result) {
+      let shortUrl
       if (result.length > 0) {
-        console.log('duplicate')
-        // generate again
-        const shortUrl = nanoid(7)
-        console.log(shortUrl)
-        return shortUrl
+        shortUrl = nanoid(7)
       } else {
-        // proceed
-        console.log('not duplicated')
+        shortUrl = shortUrl
       }
+      return shortUrl
     }
   )
 
@@ -68,6 +64,7 @@ router.get('/:id', (req, res) => {
   urlShortenerTables
     .aggregate([{ $match: { shortUrl: id } }], function (err, result) {
       longUrl = result[0].longUrl
+      return longUrl
     })
     .then(() => res.redirect(longUrl))
     .catch((error) => console.log(error))
