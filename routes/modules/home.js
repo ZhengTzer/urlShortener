@@ -56,8 +56,7 @@ router.post('/', (req, res) => {
 // link to long url
 router.get('/:id', (req, res) => {
   const id = req.params.id
-  let longUrl = ''
-  console.log(longUrl)
+
   urlShortenerTables
     .aggregate([{ $match: { shortUrl: id } }], function (err, result) {
       longUrl = result[0].longUrl
