@@ -73,6 +73,7 @@ router.get('/:id', (req, res) => {
 // remove
 router.delete('/:id', (req, res) => {
   const id = req.params.id
+
   return urlShortenerTables
     .findById(id)
     .then((deleteUrl) => deleteUrl.remove())
