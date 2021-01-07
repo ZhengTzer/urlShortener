@@ -4,8 +4,8 @@ const urlShortenerTables = require('../../models/url')
 const { nanoid } = require('nanoid')
 
 // index page
-router.get('/', (req, res) => {
-  urlShortenerTables
+router.get('/', async (req, res) => {
+  await urlShortenerTables
     .find()
     .lean()
     .sort({ date: 'desc' })
@@ -13,58 +13,30 @@ router.get('/', (req, res) => {
     .catch((error) => console.log(error))
 })
 
-router.post('/', (req, res) => {
-  const longUrl = req.body.longUrl
-
+router.post('/', async (req, res) => {
   // specific date format
   const dateOptions = { hour12: false }
   const date = new Date().toLocaleString('en-US', dateOptions)
 
-  // refer to bit.ly which provide 7 digit shortenUrl
-  let shortUrl = nanoid(7)
-
-  // check for duplicate
-  urlShortenerTables.aggregate(
-    [
-      { $match: { shortUrl: shortUrl } },
-      {
-        $group: {
-          _id: null,
-          count: {
-            $sum: 1
-          }
-        }
-      }
-    ],
-    function (err, result) {
-      while (result.length > 0) {
-        shortUrl = nanoid(7)
-      }
-    }
-  )
-
-  return urlShortenerTables
+  await urlShortenerTables
     .create({
-      longUrl,
-      shortUrl,
-      date
+      date,
+      longUrl: req.body.longUrl
     })
     .then(() => res.redirect('/'))
     .catch((error) => console.log(error))
 })
 
 // link to long url
-router.get('/:id', (req, res) => {
-  const id = req.params.id
-  let longUrl = ''
+router.get('/:shortUrl', async (req, res) => {
+  const shortUrl = await urlShortenerTables.findOne({
+    shortUrl: req.params.shortUrl
+  })
+  if (shortUrl == null) return res.sendStatus(404)
+  shortUrl.clicks++
+  shortUrl.save()
 
-  urlShortenerTables
-    .aggregate([{ $match: { shortUrl: id } }], function (err, result) {
-      longUrl = result[0].longUrl
-      return longUrl
-    })
-    .then(() => res.redirect(longUrl))
-    .catch((error) => console.log(error))
+  res.redirect(shortUrl.longUrl)
 })
 
 // remove

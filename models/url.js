@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const { nanoid } = require('nanoid')
 
 const recordSchema = new Schema({
   date: {
@@ -12,10 +13,13 @@ const recordSchema = new Schema({
   },
   shortUrl: {
     type: String,
-    required: true
+    required: true,
+    default: nanoid(7)
   },
   clicks: {
-    type: Number
+    type: Number,
+    required: true,
+    default: 0
   }
 })
 
