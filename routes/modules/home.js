@@ -37,13 +37,9 @@ router.post('/', (req, res) => {
       }
     ],
     function (err, result) {
-      let shortUrl
-      if (result.length > 0) {
+      while (result.length > 0) {
         shortUrl = nanoid(7)
-      } else {
-        shortUrl = shortUrl
       }
-      return shortUrl
     }
   )
 
@@ -60,11 +56,11 @@ router.post('/', (req, res) => {
 // link to long url
 router.get('/:id', (req, res) => {
   const id = req.params.id
-
+  let longUrl = ''
+  console.log(longUrl)
   urlShortenerTables
     .aggregate([{ $match: { shortUrl: id } }], function (err, result) {
       longUrl = result[0].longUrl
-      return longUrl
     })
     .then(() => res.redirect(longUrl))
     .catch((error) => console.log(error))
