@@ -11,7 +11,8 @@ const recordSchema = new Schema({
     required: true
   },
   shortUrl: {
-    type: String
+    type: String,
+    required: true
   },
   clicks: {
     type: Number
