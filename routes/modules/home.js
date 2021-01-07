@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
   const date = new Date().toLocaleString('en-US', dateOptions)
 
   // refer to bit.ly which provide 7 digit shortenUrl
-  const shortUrl = nanoid(7)
+  let shortUrl = nanoid(7)
 
   // check for duplicate
   urlShortenerTables.aggregate(
@@ -56,10 +56,12 @@ router.post('/', (req, res) => {
 // link to long url
 router.get('/:id', (req, res) => {
   const id = req.params.id
+  let longUrl = ''
 
   urlShortenerTables
     .aggregate([{ $match: { shortUrl: id } }], function (err, result) {
       longUrl = result[0].longUrl
+      return longUrl
     })
     .then(() => res.redirect(longUrl))
     .catch((error) => console.log(error))
