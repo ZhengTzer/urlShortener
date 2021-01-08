@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const urlShortenerTables = require('../../models/url')
 const { nanoid } = require('nanoid')
+const QRCode = require('qrcode')
 
 // index page
 router.get('/', async (req, res) => {
@@ -14,6 +15,8 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+  const longUrl = req.body.longUrl
+  const host = 'https://fathomless-meadow-84873.herokuapp.com/'
   // specific date format
   const dateOptions = { hour12: false }
   const date = new Date().toLocaleString('en-US', dateOptions)
@@ -36,11 +39,15 @@ router.post('/', async (req, res) => {
   }
   // end of check
 
+  // generate qr code
+  const qr = await QRCode.toDataURL(host + shortUrl)
+
   await urlShortenerTables
     .create({
       date,
-      longUrl: req.body.longUrl,
-      shortUrl
+      longUrl,
+      shortUrl,
+      qr
     })
     .then(() => res.redirect('/'))
     .catch((error) => console.log(error))
