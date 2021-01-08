@@ -33,7 +33,7 @@
     <div class="col-6 m-1">
       <div class="input-group m-3">
         <input type="text" class="form-control" id='copy{{this._id}}'
-          value='hhttps://fathomless-meadow-84873.herokuapp.com/{{this.shortUrl}}' readonly>
+          value='https://fathomless-meadow-84873.herokuapp.com/{{this.shortUrl}}' readonly>
         <div class="input-group-append">
           <button type="button" class="btn btn-success btn-block" onclick="copyClipboard('copy{{this._id}}')"
             data-clipboard-text="https://fathomless-meadow-84873.herokuapp.com/{{this.shortUrl}}">Copy</button>
@@ -69,7 +69,7 @@
         </div>
       </div>
       <div class="col-4">
-        <div class=" collapse multi-collapse m-3" id="qr{{this._id}}">
+        <div class="collapse multi-collapse m-3" id="qr{{this._id}}">
           <div class="card" style="width: 18rem;height:12rem">
             <div class="card-body text-center">
               <img src="{{this.qr}}">
