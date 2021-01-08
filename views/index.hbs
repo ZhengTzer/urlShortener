@@ -1,19 +1,25 @@
 <div class='container mt-5'>
   {{!-- start of single url row --}}
   {{#each url}}
-
   <div class="row m-3 justify-content-around border rounded vertical-align">
-    <div class="col-1">
+    {{!-- delete X button --}}
+    <div class="col-1 text-center">
       <form action="/{{this._id}}?_method=DELETE" method="POST" style="display: inline;">
         <button type='button submit' class='close' aria-label="Close">
           <span aria-hidden="true">&times;
           </span></button>
       </form>
     </div>
+    {{!-- end of delete X button --}}
+
+    {{!-- clicks --}}
     <div class="col-1">
       <div class="d-flex justify-content-center">{{this.clicks}}</div>
       <div class="d-flex justify-content-center">clicks</div>
     </div>
+    {{!-- end of clicks --}}
+
+    {{!-- info and date --}}
     <div class="col-3">
       <div class="row">
         <div>{{this.date}}</div>
@@ -21,35 +27,60 @@
       <div class="row">
         <div class="overflow-ellipsis">{{this.longUrl}}</div>
       </div>
-      {{!-- collapse --}}
-      <div class="row">
-        <p>
-          <button class="btn btn-outline-info btn-sm mt-1" data-toggle="collapse" href="#collapseExample{{this._id}}"
-            role="button" aria-expanded="false" aria-controls="collapseExample">
-            Full URL
-          </button>
-        </p>
-        <div class="collapse m-3" id="collapseExample{{this._id}}">
-          <div class="card card-body">
-            {{this.longUrl}}
-          </div>
+    </div>
+
+    {{!-- copy button --}}
+    <div class="col-6 m-1">
+      <div class="input-group m-3">
+        <input type="text" class="form-control" id='copy{{this._id}}'
+          value='hhttps://fathomless-meadow-84873.herokuapp.com/{{this.shortUrl}}' readonly>
+        <div class="input-group-append">
+          <button type="button" class="btn btn-success btn-block" onclick="copyClipboard('copy{{this._id}}')"
+            data-clipboard-text="https://fathomless-meadow-84873.herokuapp.com/{{this.shortUrl}}">Copy</button>
         </div>
       </div>
+    </div>
+    {{!-- end of copy button --}}
+
+    {{!-- collapse --}}
+    <div class="row">
+      <p class='d-flex justify-content-end'>
+        <button class="btn btn-outline-info btn-sm m-1" data-toggle="collapse" data-target='#fullrul{{this._id}}'
+          role="button" aria-expanded="false" aria-controls="fullrul{{this._id}}">
+          Full URL
+        </button>
+        <button class="btn btn-outline-info btn-sm m-1" data-toggle="collapse" data-target="#qr{{this._id}}"
+          role="button" aria-expanded="false" aria-controls="qr{{this._id}}">
+          QR Code
+        </button>
+      </p>
     </div>
     {{!-- end of collapse --}}
 
-    <div class="col-6">
-      <div class="row mb-1">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" id='copy{{this._id}}'
-            value='hhttps://fathomless-meadow-84873.herokuapp.com/{{this.shortUrl}}' readonly>
-          <div class="input-group-append">
-            <button type="button" class="btn btn-success btn-block" onclick="copyClipboard('copy{{this._id}}')"
-              data-clipboard-text="https://fathomless-meadow-84873.herokuapp.com/{{this.shortUrl}}">Copy</button>
+    {{!-- collapse info --}}
+    <div class="row">
+      <div class="col-8">
+        <div class="collapse multi-collapse m-3" id="fullrul{{this._id}}">
+          <div class="card" style="width: 50rem;height:10rem">
+            <div class="card-body">
+              {{this.longUrl}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class=" collapse multi-collapse m-3" id="qr{{this._id}}">
+          <div class="card" style="width: 18rem;height:10rem">
+            <div class="card-body text-center">
+              <img src="../images/default_qr.jpg">
+            </div>
           </div>
         </div>
       </div>
     </div>
+    {{!-- end of collapse info --}}
+
+    {{!-- end of collapse --}}
   </div>
 
   {{/each}}

@@ -20,4 +20,4 @@ step 5: open in browser http://localhost:3000/
 ### To be developed
 
 - [ ] QR code generator
-- [ ] Clicks tracking
+- [X] Clicks tracking

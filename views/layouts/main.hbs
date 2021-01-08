@@ -18,23 +18,23 @@
 
 <body>
   <!--navbar-->
-  <div class="row justify-content-center">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="col-2 m-3">
-        <a class="navbar-brand" href="/">短網址產生器</a>
-      </div>
-      <div class="col-6">
-        <form action="/" method="POST">
-          <div class="input-group input-group-lg">
-            <input type="url" class="form-control" placeholder="Paste long url and shorten it" name='longUrl' required>
-            <div class="input-group-append">
-              <button type='submit' class="btn btn-warning btn-lg">CREATE</button>
-            </div>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center">
+    <div class="col-2 m-3">
+      <a class="navbar-brand" href="/">短網址產生器</a>
+    </div>
+    <div class="col-6">
+      <form action="/" method="POST">
+        <div class="input-group input-group-lg">
+          <input type="url" class="form-control" placeholder="Paste long url and shorten it" name='longUrl' required>
+          <div class="input-group-append">
+            <button type='submit' class="btn btn-warning btn-lg">CREATE</button>
           </div>
-        </form>
-      </div>
-    </nav>
-  </div>
+        </div>
+      </form>
+    </div>
+  </nav>
+
   <!-- end of nav bar-->
 
   {{{body}}}

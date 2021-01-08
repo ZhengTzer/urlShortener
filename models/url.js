@@ -13,8 +13,7 @@ const recordSchema = new Schema({
   },
   shortUrl: {
     type: String,
-    required: true,
-    default: nanoid(7)
+    required: true
   },
   clicks: {
     type: Number,

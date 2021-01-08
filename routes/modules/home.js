@@ -17,11 +17,30 @@ router.post('/', async (req, res) => {
   // specific date format
   const dateOptions = { hour12: false }
   const date = new Date().toLocaleString('en-US', dateOptions)
+  let shortUrl = nanoid(7)
+
+  // check for duplicate short url
+  let checkDup = await urlShortenerTables
+    .find({
+      shortUrl: shortUrl
+    })
+    .countDocuments()
+
+  while (checkDup > 0) {
+    checkDup = await urlShortenerTables
+      .find({
+        shortUrl: shortUrl
+      })
+      .countDocuments()
+    shortUrl = nanoid(7)
+  }
+  // end of check
 
   await urlShortenerTables
     .create({
       date,
-      longUrl: req.body.longUrl
+      longUrl: req.body.longUrl,
+      shortUrl
     })
     .then(() => res.redirect('/'))
     .catch((error) => console.log(error))
