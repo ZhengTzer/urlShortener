@@ -48,8 +48,8 @@ router.post('/', async (req, res) => {
 })
 
 // link to long url
-router.get('/:shortUrl', (req, res) => {
-  const shortUrl = urlShortenerTables.findOne({
+router.get('/:shortUrl', async (req, res) => {
+  const shortUrl = await urlShortenerTables.findOne({
     shortUrl: req.params.shortUrl
   })
   if (shortUrl == null) return res.sendStatus(404)
