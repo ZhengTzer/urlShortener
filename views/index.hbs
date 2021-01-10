@@ -1,51 +1,60 @@
-<div class='container mt-5'>
-  {{!-- start of single url row --}}
+<div class="container mt-5">
+  {{! start of single url row }}
   {{#each url}}
   <div class="row m-3 justify-content-around border rounded vertical-align">
-    {{!-- delete X button --}}
+    {{! delete X button }}
     <div class="col-1 text-center">
-      <form action="/{{this._id}}?_method=DELETE" method="POST" style="display: inline;">
-        <button type='button submit' class='close' aria-label="Close">
-          <span aria-hidden="true">&times;
-          </span></button>
+      <form action="/{{this._id}}?_method=DELETE" method="POST" style="display: inline">
+        <button type="button submit" class="close" aria-label="Close">
+          <span aria-hidden="true">
+            ×
+          </span>
+        </button>
       </form>
     </div>
-    {{!-- end of delete X button --}}
-
-    {{!-- clicks --}}
+    {{! end of delete X button }}
+    {{! clicks }}
     <div class="col-1">
-      <div class="d-flex justify-content-center">{{this.clicks}}</div>
-      <div class="d-flex justify-content-center">clicks</div>
+      <div class="d-flex justify-content-center">
+        {{this.clicks}}
+      </div>
+      <div class="d-flex justify-content-center">
+        clicks
+      </div>
     </div>
-    {{!-- end of clicks --}}
-
-    {{!-- info and date --}}
+    {{! end of clicks }}
+    {{! info and date }}
     <div class="col-3">
       <div class="row">
-        <div>{{this.date}}</div>
+        <div>
+          {{this.date}}
+        </div>
       </div>
       <div class="row">
-        <div class="overflow-ellipsis">{{this.longUrl}}</div>
-      </div>
-    </div>
-
-    {{!-- copy button --}}
-    <div class="col-6 m-1">
-      <div class="input-group m-3">
-        <input type="text" class="form-control" id='copy{{this._id}}'
-          value='https://fathomless-meadow-84873.herokuapp.com/{{this.shortUrl}}' readonly>
-        <div class="input-group-append">
-          <button type="button" class="btn btn-success btn-block" onclick="copyClipboard('copy{{this._id}}')"
-            data-clipboard-text="https://fathomless-meadow-84873.herokuapp.com/{{this.shortUrl}}">Copy</button>
+        <div class="overflow-ellipsis">
+          {{this.longUrl}}
         </div>
       </div>
     </div>
-    {{!-- end of copy button --}}
-
-    {{!-- collapse --}}
+    {{! copy button }}
+    <div class="col-6 m-1">
+      <div class="input-group m-3">
+        <input type="text" class="form-control" id="copy{{this._id}}"
+          value="https://fathomless-meadow-84873.herokuapp.com/{{this.shortUrl}}" readonly />
+        <div class="input-group-append">
+          <button type="button" class="btn btn-success btn-block" onclick="copyClipboard('copy{{this._id}}')"
+            data-clipboard-text="https://fathomless-meadow-84873.herokuapp.com/
+                {{this.shortUrl}}">
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+    {{! end of copy button }}
+    {{! collapse }}
     <div class="row">
-      <p class='d-flex justify-content-end'>
-        <button class="btn btn-outline-info btn-sm m-1" data-toggle="collapse" data-target='#fullrul{{this._id}}'
+      <p class="d-flex justify-content-end">
+        <button class="btn btn-outline-info btn-sm m-1" data-toggle="collapse" data-target="#fullrul{{this._id}}"
           role="button" aria-expanded="false" aria-controls="fullrul{{this._id}}">
           Full URL
         </button>
@@ -55,13 +64,12 @@
         </button>
       </p>
     </div>
-    {{!-- end of collapse --}}
-
-    {{!-- collapse info --}}
+    {{! end of collapse }}
+    {{! collapse info }}
     <div class="row">
       <div class="col-8">
         <div class="collapse multi-collapse m-3" id="fullrul{{this._id}}">
-          <div class="card" style="width: 50rem;height:12rem">
+          <div class="card" style="width: 50rem; height: 12rem">
             <div class="card-body">
               {{this.longUrl}}
             </div>
@@ -70,19 +78,17 @@
       </div>
       <div class="col-4">
         <div class="collapse multi-collapse m-3" id="qr{{this._id}}">
-          <div class="card" style="width: 18rem;height:12rem">
+          <div class="card" style="width: 18rem; height: 12rem">
             <div class="card-body text-center">
-              <img src="{{this.qr}}">
+              <img src="{{this.qr}}" />
             </div>
           </div>
         </div>
       </div>
     </div>
-    {{!-- end of collapse info --}}
-
-    {{!-- end of collapse --}}
+    {{! end of collapse info }}
+    {{! end of collapse }}
   </div>
-
   {{/each}}
-  {{!-- end of single url row --}}
+  {{! end of single url row }}
 </div>

@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
 const urlShortenerTables = require('../../models/url')
-const { nanoid } = require('nanoid')
+const generateShortUrl = require('../../public/javascripts/generateShortUrl.js')
 const QRCode = require('qrcode')
 
 // index page
-router.get('/', async (req, res) => {
-  await urlShortenerTables
+router.get('/', (req, res) => {
+  urlShortenerTables
     .find()
     .lean()
     .sort({ date: 'desc' })
@@ -20,29 +20,23 @@ router.post('/', async (req, res) => {
   // specific date format
   const dateOptions = { hour12: false }
   const date = new Date().toLocaleString('en-US', dateOptions)
-  let shortUrl = nanoid(7)
+  let shortUrl = generateShortUrl()
+  let checkDup = ''
 
-  // check for duplicate short url
-  let checkDup = await urlShortenerTables
-    .find({
-      shortUrl: shortUrl
-    })
-    .countDocuments()
-
-  while (checkDup > 0) {
-    checkDup = await urlShortenerTables
+  do {
+    checkDup = urlShortenerTables
       .find({
         shortUrl: shortUrl
       })
       .countDocuments()
-    shortUrl = nanoid(7)
-  }
+    shortUrl = generateShortUrl()
+  } while (checkDup > 0)
   // end of check
 
   // generate qr code
   const qr = await QRCode.toDataURL(host + shortUrl)
 
-  await urlShortenerTables
+  urlShortenerTables
     .create({
       date,
       longUrl,
@@ -54,8 +48,8 @@ router.post('/', async (req, res) => {
 })
 
 // link to long url
-router.get('/:shortUrl', async (req, res) => {
-  const shortUrl = await urlShortenerTables.findOne({
+router.get('/:shortUrl', (req, res) => {
+  const shortUrl = urlShortenerTables.findOne({
     shortUrl: req.params.shortUrl
   })
   if (shortUrl == null) return res.sendStatus(404)
