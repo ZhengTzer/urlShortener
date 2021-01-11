@@ -17,9 +17,12 @@ router.get('/', (req, res) => {
 router.post('/', async (req, res) => {
   const longUrl = req.body.longUrl
   const host = 'https://fathomless-meadow-84873.herokuapp.com/'
+
   // specific date format
   const dateOptions = { hour12: false }
   const date = new Date().toLocaleString('en-US', dateOptions)
+
+  // check duplicate short url
   let shortUrl = generateShortUrl()
   let checkDup = ''
 
