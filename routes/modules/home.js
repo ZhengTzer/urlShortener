@@ -16,6 +16,8 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+  // locate base url
+  // console.log(req.headers.host)
   try {
     const longUrl = req.body.longUrl
     const host = 'https://fathomless-meadow-84873.herokuapp.com/'
@@ -63,8 +65,7 @@ router.get('/:shortUrl', async (req, res) => {
 // remove
 router.delete('/:id', async (req, res) => {
   try {
-    const id = req.params.id
-    urlShortenerTables.findById(id).then((deleteUrl) => deleteUrl.remove())
+    await urlShortenerTables.findByIdAndDelete(req.params.id)
     res.redirect('/')
   } catch (error) {
     console.log(error)
