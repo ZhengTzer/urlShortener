@@ -1,4 +1,4 @@
-![landing page](https://raw.githubusercontent.com/ZhengTzer/urlShortener/master/public/images/urlshortener.png)
+![landing page](..\images\urlshortener.png)
 
 # Url Shortener
 
