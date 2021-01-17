@@ -16,11 +16,10 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  // locate base url
-  // console.log(req.headers.host)
   try {
     const longUrl = req.body.longUrl
     const host = 'https://fathomless-meadow-84873.herokuapp.com/'
+    let shortUrl = ''
 
     // specific date format
     const dateOptions = { hour12: false }
@@ -34,7 +33,7 @@ router.post('/', async (req, res) => {
     // generate qr code
     const qr = await QRCode.toDataURL(host + shortUrl)
 
-    urlShortenerTables.create({
+    await urlShortenerTables.create({
       date,
       longUrl,
       shortUrl,
