@@ -1,4 +1,4 @@
-![landing page](..\images\urlshortener.png)
+![landing page](../images/urlshortener.png)
 
 # Url Shortener
 
